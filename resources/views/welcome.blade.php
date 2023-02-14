@@ -7,37 +7,37 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
+    @livewireStyles
 </head>
 <body>
+<?php
+$user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+
+$mobile = array('iphone', 'ipod', 'android', 'webos', 'mobile');
+$is_mobile = false;
+foreach ($mobile as $m) {
+    if (stripos($user_agent, $m) !== false) {
+        $is_mobile = true;
+        break;
+    }
+}
+if ($is_mobile) {
+   $text = '<div style="display: flex; align-items: center; justify-content: center;">
+                <p style="text-align: center">For best experience, please view this site on a desktop browser</p>
+            </div>
+            <button onclick="redirectToDesktop()">View Desktop Site</button>';
+  echo $text;
+  exit();
+}
+?>
+
+
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <h3 class="text-center my-3">Users Table</h3>
-            <button type="button" class="btn btn-primary mb-3">Create User</button>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>abc@example.com</td>
-                    <td>
-                        <button type="button" class="btn btn-warning">Edit</button>
-                        <button type="button" class="btn btn-primary">Show</button>
-                        <button type="button" class="btn btn-danger">Delete</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+       @livewire('users-livewire')
     </div>
 </div>
+@livewireScripts
 </body>
 </html>
